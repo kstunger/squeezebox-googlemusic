@@ -6,14 +6,15 @@ use warnings;
 # On LMS 7.9.0 and greater, https support is handled by the new
 # Slim::Player::Protocols::HTTPS library, which isn't available
 # on older versions
-use if (Slim::Utils::Versions->compareVersions($::VERSION, '7.9.0')) >= 0, base => qw(Slim::Player::Protocols::HTTPS);
-use if (Slim::Utils::Versions->compareVersions($::VERSION, '7.9.0')) < 0, base => qw(Slim::Player::Protocols::HTTP);
+
+use base qw(Slim::Player::Protocols::HTTP);
 
 use Scalar::Util qw(blessed);
 use Slim::Player::Playlist;
 use Slim::Utils::Log;
 use Slim::Utils::Misc;
 use Slim::Utils::Prefs;
+use URI::Escape;
 
 use Plugins::GoogleMusic::Plugin;
 use Plugins::GoogleMusic::GoogleAPI;
@@ -40,8 +41,10 @@ sub new {
 
     main::DEBUGLOG && $log->debug( 'Remote streaming Google Music track: ' . $streamUrl );
 
+    my $newUrl = 'http://localhost:8090/' . uri_escape($streamUrl);
+
     my $sock = $class->SUPER::new( {
-        url     => $streamUrl,
+        url     => $newUrl, # $streamUrl,
         song    => $song,
         client  => $client,
     } ) || return;
@@ -137,9 +140,12 @@ sub getNextTrack {
 sub canDirectStreamSong {
     my ( $class, $client, $song ) = @_;
 
+    my $streamUrl = $song->streamUrl();
+    my $newUrl = 'http://localhost:8090/' . uri_escape($streamUrl);
+
     # We need to check with the base class (HTTP) to see if we
     # are synced or if the user has set mp3StreamingMethod
-    return $class->SUPER::canDirectStream( $client, $song->streamUrl(), $class->getFormatForURL($song->track->url()) );
+    return $class->SUPER::canDirectStream( $client, $newUrl, $class->getFormatForURL($song->track->url()) );
 }
 
 sub getMetadataFor {
