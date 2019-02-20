@@ -17,9 +17,17 @@ import re
 
 logging.basicConfig(level=logging.INFO)
 LOG = logging.getLogger("main.py")
-cache = SimpleCache()
 
 ALLOWED_URL = re.compile(r'.*googleusercontent.com\/.*')
+
+# cache should be at least max song length
+# (plus allowing time for pausing song?)
+MAX_CACHE_AGE = 30 * 60  # 30 minutes should be plenty
+
+# threshold needs to be set low to keep memory usage low
+# note that this should be at least the amount of clients playing
+# in direct streaming mode
+cache = SimpleCache(threshold=3)  # MAX 3 SONGS IN CACHE
 
 
 def create_app(debug=False):
@@ -93,7 +101,7 @@ def proxy(path):
     response = cache.get(url)
     if response is None:
         response = requests.get(url, allow_redirects=True)
-        cache.set(url, response, timeout=10*60)
+        cache.set(url, response, timeout=MAX_CACHE_AGE)
 
     return send_file_partial(response)
 
