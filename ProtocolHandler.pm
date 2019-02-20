@@ -25,8 +25,10 @@ use Plugins::GoogleMusic::Recent;
 my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
+my $PROXY = "http://localhost:8090/";
 
 Slim::Player::ProtocolHandlers->registerHandler('googlemusic', __PACKAGE__);
+
 
 # To support remote streaming (synced players), we need to subclass Protocols::HTTP
 sub new {
@@ -41,7 +43,7 @@ sub new {
 
     main::DEBUGLOG && $log->debug( 'Remote streaming Google Music track: ' . $streamUrl );
 
-    my $newUrl = 'http://localhost:8090/' . uri_escape($streamUrl);
+    my $newUrl = $PROXY . uri_escape($streamUrl);
 
     my $sock = $class->SUPER::new( {
         url     => $newUrl, # $streamUrl,
@@ -141,11 +143,15 @@ sub canDirectStreamSong {
     my ( $class, $client, $song ) = @_;
 
     my $streamUrl = $song->streamUrl();
-    my $newUrl = 'http://localhost:8090/' . uri_escape($streamUrl);
+
+    # check if current URL is already 'proxied' (happens when skipping position)
+    if ( index($streamUrl,$PROXY) == -1 ) {
+      $streamUrl = $PROXY . uri_escape($streamUrl);
+    }
 
     # We need to check with the base class (HTTP) to see if we
     # are synced or if the user has set mp3StreamingMethod
-    return $class->SUPER::canDirectStream( $client, $newUrl, $class->getFormatForURL($song->track->url()) );
+    return $class->SUPER::canDirectStream( $client, $streamUrl, $class->getFormatForURL($song->track->url()) );
 }
 
 sub getMetadataFor {
