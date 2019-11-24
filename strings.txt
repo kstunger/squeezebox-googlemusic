@@ -12,30 +12,6 @@ PLUGIN_GOOGLEMUSIC_DESC
 	NL	Google Music plugin. Luister naar je Google Music bibliotheek en Google Muziek All Access.
 	DA	Google Music plugin. Hør musik fra dit Google Music bibliotek og fra Google All Access.
 
-PLUGIN_GOOGLEMUSIC_USERNAME
-	EN	Username or email address
-	DE	Benutzername oder E-Mail-Adresse
-	NL	Gebruikersnaam of emailadres
-	DA	Login eller emailadresse
-
-PLUGIN_GOOGLEMUSIC_USERNAME_DESC
-	EN	Enter your Google Play Music username or email address.
-	DE	Gib Deinen Google Play Music Benutzernamen oder Deine E-Mail-Adresse ein.
-	NL	Voer je Google Play Music gebruikersnaam of emailadres in.
-	DA	Indtast dit login til Google Play Music eller din emailadresse.
-
-PLUGIN_GOOGLEMUSIC_PASSWORD
-	EN	Password
-	DE	Passwort
-	NL	Wachtwoord
-	DA	Password
-
-PLUGIN_GOOGLEMUSIC_PASSWORD_DESC
-	EN	Enter your Google Play Music password.
-	DE	Gib Dein Google Play Music Passwort ein.
-	NL	Voor je Google Play Music wachtwoord in.
-	DA	Indtast dit password til Google Play Music.
-
 PLUGIN_GOOGLEMUSIC_DEVICE_ID
 	EN	Mobile Device ID
 	DE	Mobile Device ID
@@ -43,10 +19,34 @@ PLUGIN_GOOGLEMUSIC_DEVICE_ID
 	DA	Mobilenhedens ID
 
 PLUGIN_GOOGLEMUSIC_DEVICE_ID_DESC
-	EN	Enter the Google Service Framework (GSF) ID of your Android device or the ID of your iOS device. The Android GSF ID is a 16-digit hexadecimal string (without a '0x' prefix) identifying the Android device you must already have registered for Google Play Music. For iOS the ID looks like ios:01234567-0123-0123-0123-0123456789AB (including the 'ios:' prefix). On Android you can obtain this ID by dialing *#*#8255#*#* on your phone (look for the aid) or using a device ID App (look for the Google Service Framework ID Key). If your Android or iOS device is already registered, you should leave this field empty. It will be filled in automatically after setting the username and password.
-	DE	Gib Deine Google Service Framework (GSF) ID Deines Android- or die ID Deines iOS-Gerätes ein. Die Android GSF ID ist ein 16-stelliger hexadezimaler Wert (ohne '0x' Prefix), welcher das Androidgerät identifiziert, dass Du bei Google Play Music registriert haben musst. Eine iOS ID sieht so aus: ios:01234567-0123-0123-0123-0123456789AB (mit dem 'ios:' Prefix). Bei Andriod findest Du diese ID, wenn Du *#*#8255#*#* auf Deinem Telefon wählst (Die ID heißt hier aid) oder eine Device-ID-App benutzt (Die ID heißt hier Google Service Framework ID Key). Wenn Dein Android- oder iOS-Gerät bereits bei Google Play Music registriert ist, kannst Du dieses Feld auch leer lassen. Es wird automatisch nach Setzen des Benutzernamens und Passworts ausgefüllt.
-	NL	Voer je Google Service Framework (GSF) ID van je Android apparaat in. Dit ID is een hexadecimaal woord van 16 karakters (zonder de '0x' prefix), en identificeert je Android apparaat dat je al geregistreerd hebt bij Google Play Muziek. je kunt dit ID achterhalen door *#*#8255#*#* te bellen op je telefoon (kijk bij de hulp) of door gebruik te maken van een apparaat ID App (zoek naar Google Service Framework ID Key). Als je Android apparaat al is geregistreerd moet je die veld leeg laten. Het zal dan automatisch worden ingevuld als je je gebruikersnaam en wachtwoord hebt ingevuld.
-	DA	Indtast Google Service Framework (GSF) ID for din Android enhed eller ID for dit iOS enhed. Android GSF ID er et 16 cifret hexadecimalt tal (uden ‘0x’ præfiks) som identificerer din Android enhed, som du skal have registreret for Google Play Music på forhånd. For iOS er ID’et på formen ios:01234567-0123-0123-0123-0123456789AB (inklusiv ‘iOS:’ præfiks). På Android kan du se dit ID ved at ringe til *#*#8255#*#* fra din telefon (se efter ‘aid’) eller brug en ‘device id’ app og se efter Google Service Framework ID. Hvis din Android eller iOS enhed allerede er registreret, kan du lade dette felt være blankt. Det vil blive fyldt automatisk efter du har indtastet login og password.  
+	EN	Enter the Google Service Framework (GSF) ID of your Android device or the ID of your iOS device. The Android GSF ID is a 16-digit hexadecimal string (without a '0x' prefix) identifying the Android device you must already have registered for Google Play Music. For iOS the ID looks like ios:01234567-0123-0123-0123-0123456789AB (including the 'ios:' prefix). On Android you can obtain this ID by dialing *#*#8255#*#* on your phone (look for the aid) or using a device ID App (look for the Google Service Framework ID Key).
+	DE	Gib Deine Google Service Framework (GSF) ID Deines Android- or die ID Deines iOS-Gerätes ein. Die Android GSF ID ist ein 16-stelliger hexadezimaler Wert (ohne '0x' Prefix), welcher das Androidgerät identifiziert, dass Du bei Google Play Music registriert haben musst. Eine iOS ID sieht so aus: ios:01234567-0123-0123-0123-0123456789AB (mit dem 'ios:' Prefix). Bei Andriod findest Du diese ID, wenn Du *#*#8255#*#* auf Deinem Telefon wählst (Die ID heißt hier aid) oder eine Device-ID-App benutzt (Die ID heißt hier Google Service Framework ID Key).
+	NL	Voer je Google Service Framework (GSF) ID van je Android apparaat in. Dit ID is een hexadecimaal woord van 16 karakters (zonder de '0x' prefix), en identificeert je Android apparaat dat je al geregistreerd hebt bij Google Play Muziek. je kunt dit ID achterhalen door *#*#8255#*#* te bellen op je telefoon (kijk bij de hulp) of door gebruik te maken van een apparaat ID App (zoek naar Google Service Framework ID Key).
+	DA	Indtast Google Service Framework (GSF) ID for din Android enhed eller ID for dit iOS enhed. Android GSF ID er et 16 cifret hexadecimalt tal (uden ‘0x’ præfiks) som identificerer din Android enhed, som du skal have registreret for Google Play Music på forhånd. For iOS er ID’et på formen ios:01234567-0123-0123-0123-0123456789AB (inklusiv ‘iOS:’ præfiks). På Android kan du se dit ID ved at ringe til *#*#8255#*#* fra din telefon (se efter ‘aid’) eller brug en ‘device id’ app og se efter Google Service Framework ID.
+
+PLUGIN_GOOGLEMUSIC_DEVICE_ID_CLEAR_MESSAGE
+	EN	Clear device id to force a new oauth login procedure.
+	NL	Maak apparaat id leeg om een nieuwe oauth procedure the forceren.
+
+PLUGIN_GOOGLEMUSIC_OAUTH_LINK_TITLE
+	EN	OAuth link
+	NL	OAuth link
+
+PLUGIN_GOOGLEMUSIC_OAUTH_LINK_DESC
+	EN	Authorize and get the access token via this link
+	NL	Authoriseer en verkrijg de access token via deze link
+
+PLUGIN_GOOGLEMUSIC_OAUTH_ACCESS_TOKEN_TITLE
+	EN	OAuth Access Token
+	NL	OAuth Access Token
+
+PLUGIN_GOOGLEMUSIC_OAUTH_ACCESS_TOKEN_DESC
+	EN	The OAuth token can be retrieved by following the authorization link above.
+	NL	Het OAuth token kan worden verkregen door de bovenstaande authorisatie link te volgen.
+
+PLUGIN_GOOGLEMUSIC_DEVICE_ID_HINT
+	EN	Make sure to also fill in a valid device ID below
+	NL	Let op dat je hier beneden ook een valide apparaat ID invult
 
 PLUGIN_GOOGLEMUSIC_ALL_ACCESS_ENABLED
 	EN	Enable All Access
@@ -91,10 +91,10 @@ PLUGIN_GOOGLEMUSIC_MAX_RELATED_ARTISTS_DESC
 	DA	Begrænser antallet af lignende kunstnere i All Access. Hvis du oplever problemer med performance eller besvær med at vise søgeresultaterne, kan du sætte denne værdi lavere. 
 
 PLUGIN_GOOGLEMUSIC_LOGIN_FAILED
-	EN	Login to Google Play Music failed. Bad username or password.
-	DE	Das Einloggen bei Google Play Music schlug fehl. Der Benutzername oder das Passwort sind falsch.
-	NL	Inloggen bij Google Play Muziek mislukt. Verkeerde gebruikersnaam of wachtwoord.
-	DA	Login til Google Play Music mislykkedes. Forkert login eller password.
+	EN	Login to Google Play Music failed.
+	DE	Das Einloggen bei Google Play Music schlug fehl.
+	NL	Inloggen bij Google Play Muziek mislukt.
+	DA	Login til Google Play Music mislykkedes.
 
 PLUGIN_GOOGLEMUSIC_LOGIN_SUCCESS
 	EN	Successfully logged in to Google Play Music.
@@ -103,10 +103,10 @@ PLUGIN_GOOGLEMUSIC_LOGIN_SUCCESS
 	DA	Login til Google Play Music lykkedes.
 
 PLUGIN_GOOGLEMUSIC_NOT_LOGGED_IN
-	EN	Not logged in to Google Play Music. Set your username and password.
-	DE	Nicht eingeloggt bei Google Play Music. Setze Deinen Benutzernamen und Dein Passwort.
-	NL	Niet ingelogd bij Google Play Muziek. Stel je gebruikersnaam en wachtwoord in.
-	DA	Du er ikke logget ind i Google play Music. Indtast login og password.
+	EN	Not logged in to Google Play Music.
+	DE	Nicht eingeloggt bei Google Play Music.
+	NL	Niet ingelogd bij Google Play Muziek.
+	DA	Du er ikke logget ind i Google play Music.
 
 PLUGIN_GOOGLEMUSIC_NO_DEVICE_ID
 	EN	No mobile device (phone or tablet) registered for Google Play Music. Not able to obtain the mobile device ID automatically.

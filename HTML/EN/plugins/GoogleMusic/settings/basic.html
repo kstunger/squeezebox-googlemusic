@@ -5,20 +5,23 @@
 	[% END %]
 
 	[% WRAPPER settingSection %]
-		[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_USERNAME" desc="PLUGIN_GOOGLEMUSIC_USERNAME_DESC" %]
-			<input type="text" class="stdedit" name="username" id="username" value="[% prefs.username %]" size="40" />
-		[% END %]
 
-		[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_PASSWORD" desc="PLUGIN_GOOGLEMUSIC_PASSWORD_DESC" %]
-			<input type="password" class="stdedit" name="password" id="password" value="[% prefs.password %]" size="40" />
+		[% IF prefs.oauth_authorize_url %]
+			[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_OAUTH_LINK_TITLE" desc="PLUGIN_GOOGLEMUSIC_OAUTH_LINK_DESC" %]
+				<a target="_blank" href="[% prefs.oauth_authorize_url %]">
+					[% "PLUGIN_GOOGLEMUSIC_OAUTH_LINK_DESC" | string %]
+				</a>
+			[% END %]
+
+			[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_OAUTH_ACCESS_TOKEN_TITLE" desc="PLUGIN_GOOGLEMUSIC_OAUTH_ACCESS_TOKEN_DESC" %]
+				<input type="text" class="stdedit" name="oauth_access_token" id="oauth_access_token" value="[% prefs.oauth_access_token %]" size="40" />
+                        	<p>[% "PLUGIN_GOOGLEMUSIC_DEVICE_ID_HINT" | string %]</p>
+			[% END %]
 		[% END %]
 
 		[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_DEVICE_ID" desc="PLUGIN_GOOGLEMUSIC_DEVICE_ID_DESC" %]
 			<input type="text" class="stdedit" name="device_id" id="device_id" value="[% prefs.device_id %]" size="40" />
-		[% END %]
-
-		[% WRAPPER settingGroup title="PLUGIN_GOOGLEMUSIC_DISABLE_SSL" desc="PLUGIN_GOOGLEMUSIC_DISABLE_SSL_DESC" %]
-			<input type="checkbox" name="disable_ssl" [% IF prefs.disable_ssl %] checked [% END %]>
+                        <p>[% "PLUGIN_GOOGLEMUSIC_DEVICE_ID_CLEAR_MESSAGE" | string %]</p>
 		[% END %]
 	[% END %]
 	

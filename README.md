@@ -170,13 +170,7 @@ reports for issue #28 you will have to do the following:
 
 ## Usage
 
-1. Go to the plug-in settings page and set your Google username and
-   password for the Google Music plug-in.
-
-   **Note**: If you have 2-Step Vertification enabled on your account, you'll
-   need to generate and use an application-specific password instead of your
-   regular password. Follow the instructions in this [support page](https://support.google.com/accounts/answer/185833)
-   to generate an App Password for the Google Music plug-in.
+1. Go to the plug-in settings page and login at Google Music using oauth (follow the link)
 
 1. The mobile device ID is a 16-digit hexadecimal string (without a
    '0x' prefix) identifying an Android device or a string of the form
@@ -186,10 +180,7 @@ reports for issue #28 you will have to do the following:
    `*#*#8255#*#*` on your phone (see the aid) or using this
    [App](https://play.google.com/store/apps/details?id=com.evozi.deviceid)
    (see the Google Service Framework ID Key). You may also use the
-   script `mobile_devices.py` to list all registered devices. If your
-   Android or iOS device is already registered, you may leave the
-   field `Mobile Device ID` empty. It will be filled in automatically
-   after setting the username and password.
+   script `mobile_devices.py` to list all registered devices.
 
    **Note**: A registered PC MAC address will not work as a mobile
      device ID.
