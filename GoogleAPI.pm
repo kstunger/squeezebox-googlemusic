@@ -10,6 +10,7 @@ my $prefs = preferences('plugin.googlemusic');
 
 my $inlineDir;
 my $googleapi;
+my $oauthflow;
 
 sub get {
     if (!blessed($googleapi)) {
@@ -18,9 +19,24 @@ sub get {
                 $Inline::Python::Boolean::false,
                 $Inline::Python::Boolean::false,
                 $prefs->get('disable_ssl') ? $Inline::Python::Boolean::false : $Inline::Python::Boolean::true);
+
+            $oauthflow = oauth_get_flow($googleapi);
         };
     }
     return $googleapi;
+}
+
+sub get_oauth_flow {
+    if (!blessed($oauthflow)) {
+        get();
+    }
+    return $oauthflow;
+}
+
+sub get_oauth_credentials {
+    my $creds_json = shift;
+    my $creds = creds_from_json($creds_json);
+    return $creds;
 }
 
 sub get_device_id {
@@ -75,6 +91,18 @@ use Inline Python => <<'END_OF_PYTHON_CODE';
 
 import gmusicapi
 from gmusicapi import Mobileclient, Webclient, CallFailure
+from oauth2client.client import OAuth2WebServerFlow
+from oauth2client.client import OAuth2Credentials
+
+def oauth_get_flow(mobileclient):
+    flow = OAuth2WebServerFlow(**mobileclient.session.oauth._asdict())
+    # note: next steps in the oauth flow are:
+    # - flow.step1_get_authorize_url()
+    # - credentials = flow.step2_exchange(code)
+    return flow
+
+def creds_from_json(creds_json):
+   return OAuth2Credentials.from_json(creds_json)
 
 def get_version():
     return gmusicapi.__version__
