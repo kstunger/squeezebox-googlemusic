@@ -24,6 +24,7 @@ my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
 my $oauthflow = Plugins::GoogleMusic::GoogleAPI::get_oauth_flow();
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 
 $prefs->init({
     oauth_authorize_url => '',
@@ -54,8 +55,12 @@ sub handler {
     if ($params->{'saveSettings'} && $params->{'oauth_access_token'} &&
         $params->{'device_id'}) {
 
+        $log->error("oauth_access_token: $params->{'oauth_access_token'}");
+        $log->error("device_id: $params->{'device_id'}");
+
         my $credentials = $oauthflow->step2_exchange($params->{'oauth_access_token'});
         my $creds_json = $credentials->to_json();
+        $log->error("creds: $creds_json");
 
 	$prefs->set('device_id', $params->{'device_id'});
         $prefs->set('oauth_creds_json', $creds_json);
@@ -67,7 +72,7 @@ sub handler {
 
         # try to login with new oauth creds
         eval {
-            $googleapi->oauth_login($prefs->get('device_id'), $credentials);
+            $googleapi->oauth_login($utils->bytes_to_string($prefs->get('device_id')), $credentials);
         };
         if ($@) {
             $log->error("Not able to login to Google Play Music: $@");
@@ -104,7 +109,7 @@ sub handler {
 
             # try to login with new oauth creds
             eval {
-                $googleapi->oauth_login($device_id, $credentials);
+                $googleapi->oauth_login($utils->bytes_to_string($device_id), $credentials);
             };
             if ($@) {
                 $log->error("Not able to login to Google Play Music: $@");

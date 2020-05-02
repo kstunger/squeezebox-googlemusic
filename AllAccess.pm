@@ -9,7 +9,6 @@ use Slim::Utils::Log;
 use Slim::Utils::Cache;
 
 use Plugins::GoogleMusic::GoogleAPI;
-use Inline::Python qw(py_eval);
 
 Readonly my $CACHE_TIME => 3600;
 # Cache track information for one day because get_album_info() would
@@ -21,6 +20,7 @@ Readonly my $CACHE_TIME_SHORT => 30;
 my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 my $cache;
 
 sub init {
@@ -173,7 +173,7 @@ sub get_track {
         return $track;
     }
 
-    my ($id) = $uri =~ m{^googlemusic:track:(.*)$}x;
+    my ($id) = $utils->bytes_to_string($uri =~ m{^googlemusic:track:(.*)$}x);
     my $song;
 
     eval {
@@ -234,22 +234,17 @@ sub search {
         return;
     }
 
-
-    # These seemingly useless list comprehensions make this work!
-        # It seems that Inline Python doesn't deal with newlist as used in gmusicapi
-        # so this list comprehension creates a plain old list, which can be used in Perl
-        # See http://stackoverflow.com/questions/37937897/how-do-i-use-or-convert-or-view-inline-python-objects-in-perl
-        my $song_hits = py_eval("[x for x in $googleResult->{song_hits}]", 0);
+    my $song_hits = $googleResult->{song_hits};
     for my $hit (@$song_hits) {
         push @{$result->{tracks}}, to_slim_track($hit->{track});
     }
 
-        my $album_hits = py_eval("[x for x in $googleResult->{album_hits}]", 0);
+    my $album_hits = $googleResult->{album_hits};
     for my $hit (@$album_hits) {
         push @{$result->{albums}}, album_to_slim_album($hit->{album});
     }
 
-        my $artist_hits = py_eval("[x for x in $googleResult->{artist_hits}]", 0);
+    my $artist_hits = $googleResult->{artist_hits};
     for my $hit (@$artist_hits) {
         push @{$result->{artists}}, artist_to_slim_artist($hit->{artist});
     }
@@ -629,7 +624,7 @@ sub changeRating {
 
     return unless $prefs->get('all_access_enabled');
 
-    my ($id) = $uri =~ m{^googlemusic:track:(.*)$}x;
+    my ($id) = $utils->bytes_to_string($uri =~ m{^googlemusic:track:(.*)$}x);
     my $song;
 
     # Get the Google track info first
@@ -646,7 +641,7 @@ sub changeRating {
 
     # And apply it
     eval {
-        $song = $googleapi->change_song_metadata($song);
+        $song = $googleapi->change_song_metadata($utils->dict_keys_to_string($song));
     };
     if ($@) {
         $log->error("Not able to change the song metadata for track ID $id: $@");

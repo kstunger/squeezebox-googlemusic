@@ -25,6 +25,7 @@ use Plugins::GoogleMusic::Recent;
 my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 my $PROXY = "http://localhost:8090/";
 
 Slim::Player::ProtocolHandlers->registerHandler('googlemusic', __PACKAGE__);
@@ -102,11 +103,11 @@ sub getNextTrack {
 
     my $client = $song->master();
     my $url = $song->currentTrack()->url;
-    my ($id) = $url =~ m{^googlemusic:track:(.*)$}x;
+    my ($id) = $utils->bytes_to_string($url =~ m{^googlemusic:track:(.*)$}x);
     my $trackURL;
 
     eval {
-        $trackURL = $googleapi->get_stream_url($id, $prefs->get('device_id'));
+        $trackURL = $googleapi->get_stream_url($id, $utils->bytes_to_string($prefs->get('device_id')));
     };
     if ($@) {
         # We didn't get the next track to play

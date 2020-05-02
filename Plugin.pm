@@ -37,7 +37,7 @@ use Plugins::GoogleMusic::ArtistMenu;
 my $log;
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
-# my $oauthflow = Plugins::GoogleMusic::GoogleAPI::get_oauth_flow($googleapi);
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 my $cache = Slim::Utils::Cache->new('googlemusic', 4);
 
 BEGIN {
@@ -89,7 +89,7 @@ sub initPlugin {
     # Try to login. If verification fails, login() raises an
     # exception. Catch it to allow the plugin to be started.
     my $creds_json = $prefs->get('oauth_creds_json');
-    my $device_id = $prefs->get('device_id');
+    my $device_id = $utils->bytes_to_string($prefs->get('device_id'));
     if ($creds_json ne '' && $device_id ne '') {
         my $credentials = Plugins::GoogleMusic::GoogleAPI::get_oauth_credentials($creds_json);
         eval {
@@ -99,6 +99,9 @@ sub initPlugin {
             $log->error("Not able to login to Google Play Music: $@");
         }
     }
+
+    $log->error("device_id: $device_id");
+    $log->error("creds_json: $creds_json");
 
     # Refresh My Library and Playlists
     if (!$googleapi->is_authenticated()) {

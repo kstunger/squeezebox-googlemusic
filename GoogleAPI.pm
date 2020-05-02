@@ -11,6 +11,7 @@ my $prefs = preferences('plugin.googlemusic');
 my $inlineDir;
 my $googleapi;
 my $oauthflow;
+my $utils;
 
 sub get {
     if (!blessed($googleapi)) {
@@ -31,6 +32,15 @@ sub get_oauth_flow {
         get();
     }
     return $oauthflow;
+}
+
+sub get_utils {
+    if (!blessed($utils)) {
+        eval {
+            $utils = get_utils();
+        };
+    }
+    return $utils;
 }
 
 sub get_oauth_credentials {
@@ -106,6 +116,29 @@ def creds_from_json(creds_json):
 
 def get_version():
     return gmusicapi.__version__
+
+def get_utils():
+    class Utils(object):
+
+        def bytes_to_string(self, bstring):
+            if isinstance(bstring, bytes):
+                return bstring.decode('utf-8')
+            return bstring
+
+        def dict_keys_to_string(self, mydict):
+            for key in mydict.keys():
+                if type(key) is not str:
+                    try:
+                        mydict[str(key)] = mydict[key]
+                    except:
+                        try:
+                            mydict[repr(key)] = mydict[key]
+                        except:
+                            pass
+                    del mydict[key]
+            return mydict
+
+    return Utils()
 
 END_OF_PYTHON_CODE
 

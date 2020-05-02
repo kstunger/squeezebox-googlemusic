@@ -19,6 +19,7 @@ use Plugins::GoogleMusic::RadioProtocolHandler;
 my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 
 my $PLAYLIST_MAXLENGTH = 10;
 
@@ -289,7 +290,7 @@ sub cliRequest {
         }
     } elsif ($type eq 'genre') {
         my $station;
-        my $genreID = $request->getParam('_p2');
+        my $genreID = $utils->bytes_to_string($request->getParam('_p2'));
         my $genre = Plugins::GoogleMusic::AllAccess::getGenre("googlemusic:genre:$genreID");
 
         $log->info("Creating Google Music radio station for genre ID $genreID");
@@ -421,7 +422,7 @@ sub fetchStationTracks {
     my ($master, $tracks, $args) = @_;
 
     my $recentlyPlayed = $master->pluginData('recentlyPlayed') || [];
-    my $station = $args->{'station'};
+    my $station = $utils->bytes_to_string($args->{'station'});
     my $googleTracks;
 
     # Get new tracks for the station

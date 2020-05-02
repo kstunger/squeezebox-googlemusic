@@ -15,6 +15,7 @@ use Plugins::GoogleMusic::GoogleAPI;
 my $log = logger('plugin.googlemusic');
 my $prefs = preferences('plugin.googlemusic');
 my $googleapi = Plugins::GoogleMusic::GoogleAPI::get();
+my $utils = Plugins::GoogleMusic::GoogleAPI::get_utils();
 
 # All songs retrieved from Google indexed by ID
 my $songs = {};
@@ -388,7 +389,7 @@ sub changeRating {
 
     # And apply it
     eval {
-        $song = $googleapi->change_song_metadata($song);
+        $song = $googleapi->change_song_metadata($utils->dict_keys_to_string($song));
     };
     if ($@) {
         $log->error("Not able to change the song metadata for track ID $id: $@");

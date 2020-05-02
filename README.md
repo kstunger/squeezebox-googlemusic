@@ -36,7 +36,7 @@ googlemusic plugin for squeezebox which has ceased development.
 * Logitech Media Server 7.8.0 or 7.9.1 or greater (some versions of 7.9.0
   might work)
   * Highly recommended to upgrade to one of the latest [nightly builds](http://downloads.slimdevices.com/nightly/) if possible
-* Python 2.7.x
+* Python 3
 * A Google Account
   * An App Password if you have 2-Step Verification enabled on your account
     (see the [Usage](#usage) section below for more details)
@@ -54,13 +54,13 @@ systems to extend this howto.
    your library. If you want to use Google Music All Access features
    you will need a subscription to this service.
 
-1. Install Python 2.7 (usually installed on Linux systems by default) and [Python pip](http://www.pip-installer.org).
+1. Install Python 3 (usually installed on Linux systems by default) and [Python pip](http://www.pip-installer.org).
 
-1. Install [gmusicapi](https://github.com/simon-weber/gmusicapi) for Python 2
+1. Install [gmusicapi](https://github.com/simon-weber/gmusicapi) for Python 3
    by running:
 
     ```
-    sudo pip2 install gmusicapi==12.1.0
+    sudo pip3 install gmusicapi==13.0.0
     ```
 
 1. The Google Music plugin requires the perl modules Inline::Python and IO::Socket::SSL
@@ -104,7 +104,7 @@ systems to extend this howto.
     ```
     sudo cpan App::cpanminus
     sudo cpanm --notest Inline
-    sudo cpanm --notest Inline::Python
+    sudo INLINE_PYTHON_EXECUTABLE="/usr/bin/python3" cpanm --notest Inline::Python
     sudo cpanm --notest IO::Socket::SSL
     ```
 
@@ -148,7 +148,7 @@ reports for issue #28 you will have to do the following:
    by running:
 
    ```
-   sudo pip install gmusicapi==12.1.0
+   sudo pip install gmusicapi==13.0.0
    ```
 1. Install the Perl CPAN package
    [Inline](http://search.cpan.org/~ingy/Inline/) and
@@ -158,7 +158,7 @@ reports for issue #28 you will have to do the following:
    ```
    sudo cpan App::cpanminus
    sudo ARCHFLAGS="-arch i386 -arch x86_64" cpanm --notest Inline
-   sudo ARCHFLAGS="-arch i386 -arch x86_64" cpanm --notest Inline::Python
+   sudo ARCHFLAGS="-arch i386 -arch x86_64" INLINE_PYTHON_EXECUTABLE="/usr/bin/python3" cpanm --notest Inline::Python
    ```
 
 1. Go to the Logitech Media Server with your browser. Visit the
@@ -203,12 +203,11 @@ reports for issue #28 you will have to do the following:
    depending on your installed python version, you might have to use pip
 
     ```
-    sudo pip2 install gmusicapi==12.1.0
-    sudo apt-get install python-dev
-    sudo apt-get install libio-socket-ssl-perl
+    sudo apt install python3-pip python-dev libio-socket-ssl-perl
+    sudo pip3 install gmusicapi==13.0.0
     sudo cpan App::cpanminus
     sudo cpanm --notest Inline
-    sudo cpanm --notest Inline::Python
+    sudo INLINE_PYTHON_EXECUTABLE="/usr/bin/python3" cpanm --notest Inline::Python
     sudo cpanm --notest IO::Socket::SSL
     ```
 
